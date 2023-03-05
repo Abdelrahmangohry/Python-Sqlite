@@ -19,7 +19,7 @@ cr.execute('create table if not exists skills(Name text, Progress integer, User_
 def commit_and_close():
   db.commit()
   db.close() 
-  print("Saved & Connection To Database Is Closed")
+  print("Saved & Connection To Database Is Closed!")
 
 
 # Current User ID
@@ -48,8 +48,8 @@ def show_skills():
       print(f"You Have {len(results)} Skills.")
       if len(results) > 0:
             print("Showing Skills With Progress: ")
-      for row in results:
-            print(f"Skill => {row[0]},", end=" ")
+      for number, row in enumerate(results):
+            print(f"Skill {number + 1} => {row[0]},", end=" ")
             print(f"Progress => {row[1]}%") 
       commit_and_close()
 
@@ -59,11 +59,11 @@ def add_skill():
      results = cr.fetchone()
 
      if results == None:
-          prog = input("Write Skill Progress ").strip()
-          cr.execute(f"insert into skills(name, progress, user_id) values('{sk}', '{prog}', '{uid}')")
-          print('your skill added successfully')
+          prog = input("Write Skill Progress: ").strip()
+          cr.execute(f"insert into skills values('{sk}', '{prog}', '{uid}')")
+          print('your new skill added successfully')
      else:
-           print('dubplicated value')    
+           print('duplicated value')    
      commit_and_close()
 
 def delete_skill():
